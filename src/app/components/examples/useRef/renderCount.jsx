@@ -2,16 +2,21 @@ import React, { useRef, useState, useEffect } from "react";
 import CardWrapper from "../../common/Card";
 import SmallTitle from "../../common/typografy/smallTitle";
 const RenderCountExample = () => {
-    const [renderCount, setRenderCount] = useState(0);
-    const someRef = useRef("someRef");
+    const renderCount = useRef(0);
+    const [otherState, setOtherState] = useState(false);
+    const toggleOtherState = () => {
+        setOtherState(!otherState);
+    };
     useEffect(() => {
-        setRenderCount((prevState) => prevState + 1);
+        renderCount.current++;
     });
     return (
         <CardWrapper>
             <SmallTitle>Подсчет количества рендеров</SmallTitle>
-            {someRef.current}
-            <p>render count: {renderCount}</p>
+            <p>render count: {renderCount.current}</p>
+            <button className="btn btn-primary" onClick={toggleOtherState}>
+                Toggle other state
+            </button>
         </CardWrapper>
     );
 };
