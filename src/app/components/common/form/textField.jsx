@@ -5,7 +5,9 @@ const TextField = ({ label, type, name, value, onChange, error }) => {
     const [showPassword, setShowPassword] = useState(false);
 
     const handleChange = ({ target }) => {
-        onChange({ name: target.name, value: target.value });
+        return onChange
+            ? onChange({ name: target.name, value: target.value })
+            : null;
     };
     const getInputClasses = () => {
         return "form-control" + (error ? " is-invalid" : "");
