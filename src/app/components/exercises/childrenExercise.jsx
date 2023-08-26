@@ -1,5 +1,23 @@
 import React from "react";
 import CollapseWrapper from "../common/collapse";
+
+const NumberList = ({ children }) => {
+    return React.Children.map(children, (child, index) => {
+        if (child.type === Component) {
+            return (
+                <div
+                    style={{
+                        display: "flex"
+                    }}
+                >
+                    {String(index + 1) + "\u00A0" + "\u00A0" + "\u00A0"}
+                    {child}
+                </div>
+            );
+        }
+        return null;
+    });
+};
 const ChildrenExercise = () => {
     return (
         <CollapseWrapper title="Упражнение">
@@ -10,10 +28,11 @@ const ChildrenExercise = () => {
                 <code>React.Children.map</code> так и{" "}
                 <code>React.Children.toArray</code>
             </p>
-
-            <Component />
-            <Component />
-            <Component />
+            <NumberList>
+                <Component />
+                <Component />
+                <Component />
+            </NumberList>
         </CollapseWrapper>
     );
 };
