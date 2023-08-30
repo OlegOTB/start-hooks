@@ -1,18 +1,21 @@
 import React from "react";
+import PropTypes from "prop-types";
 import CollapseWrapper from "../common/collapse";
 
-const NumberList = ({ children }) => {
+const ComponentsList = ({ children }) => {
     return React.Children.map(children, (child, index) => {
         if (child.type === Component) {
-            return (
-                <div
-                    style={{
-                        display: "flex"
-                    }}
-                >
-                    {String(index + 1) + "\u00A0" + "\u00A0" + "\u00A0"}
-                    {child}
-                </div>
+            return React.cloneElement(
+                child,
+                { ...child.props, num: index + 1 }
+                // <div
+                //     style={{
+                //         display: "flex"
+                //     }}
+                // >
+                //     {String(index + 1) + "\u00A0" + "\u00A0" + "\u00A0"}
+                //     {child}
+                // </div>
             );
         }
         return null;
@@ -28,17 +31,27 @@ const ChildrenExercise = () => {
                 <code>React.Children.map</code> так и{" "}
                 <code>React.Children.toArray</code>
             </p>
-            <NumberList>
+            <ComponentsList>
                 <Component />
                 <Component />
                 <Component />
-            </NumberList>
+            </ComponentsList>
         </CollapseWrapper>
     );
 };
 
-const Component = () => {
-    return <div>Компонент списка</div>;
+const Component = ({ num }) => {
+    return <div>{num} Компонент списка</div>;
+};
+
+ComponentsList.propTypes = {
+    children: PropTypes.oneOfType([
+        PropTypes.arrayOf(PropTypes.node),
+        PropTypes.node
+    ])
+};
+Component.propTypes = {
+    num: PropTypes.string
 };
 
 export default ChildrenExercise;
